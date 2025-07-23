@@ -33,10 +33,29 @@
 
 <hr>
 <h4>Your Bookings:</h4>
-<ul>
-    {% for b in bookings %}
-        <li>{{ b[2] }} on {{ b[3] }} at seat {{ b[4] }}</li>
-    {% endfor %}
-</ul>
+{% if bookings %}
+<h4>Your Bookings:</h4>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Event</th>
+            <th>Date</th>
+            <th>Seat</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for b in bookings %}
+        <tr>
+            <td>{{ b[2] }}</td>
+            <td>{{ b[3] }}</td>
+            <td>{{ b[4] }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No bookings yet.</p>
+{% endif %}
+
 <a href="/logout" class="btn btn-danger mt-2">Logout</a>
 {% endblock %}
