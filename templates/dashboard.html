@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<h2>Welcome {{ user }}</h2>
+<h4>Book a Ticket</h4>
+<form method="POST" action="/book">
+    <label>Event:</label>
+    <select name="event" class="form-control" required>
+    <option value="AI & ML Workshop">AI & ML Workshop</option>
+    <option value="National Hackathon">National Hackathon</option>
+    <option value="Annual Day Celebration">Annual Day Celebration</option>
+    <option value="DJ Night Live">DJ Night Live</option>
+    <option value="Singing Night">SurSangam Singing Night</option>
+    <option value="CodeStorm Coding Contest">CodeStorm Coding Contest</option>
+</select>
+    </select><br>
+
+    <label>Date:</label>
+    <input type="date" name="date" class="form-control" required><br>
+
+    <label>Seat Number:</label>
+    <select name="seat" class="form-control" required>
+        {% for seat in seats %}
+            <option value="{{ seat }}">{{ seat }}</option>
+        {% endfor %}
+        {% if seats|length == 0 %}
+            <option disabled>No seats available</option>
+        {% endif %}
+    </select><br>
+
+    <button type="submit" class="btn btn-info">Book Ticket</button>
+</form>
+
+<hr>
+<h4>Your Bookings:</h4>
+{% if bookings %}
+<h4>Your Bookings:</h4>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Event</th>
+            <th>Date</th>
+            <th>Seat</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for b in bookings %}
+        <tr>
+            <td>{{ b[2] }}</td>
+            <td>{{ b[3] }}</td>
+            <td>{{ b[4] }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No bookings yet.</p>
+{% endif %}
+
+<a href="/logout" class="btn btn-danger mt-2">Logout</a>
+{% endblock %}
